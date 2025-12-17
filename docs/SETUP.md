@@ -53,11 +53,11 @@ python --version
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/bitshield.git
-cd bitshield
+git clone https://github.com/Divyanand-L/BitShield.git
+cd BitShield
 
 # Or download and extract ZIP
-# https://github.com/your-org/bitshield/archive/main.zip
+# https://github.com/Divyanand-L/BitShield/archive/main.zip
 ```
 
 ---
@@ -96,42 +96,31 @@ Your terminal prompt should now show `(venv)` prefix.
 # Upgrade pip
 pip install --upgrade pip
 
-# Install all dependencies
+# Install all dependencies (this will take 2-5 minutes)
 pip install -r requirements.txt
-
-# This will install:
-# - LangChain & LangGraph (agent framework)
-# - Sentence-Transformers (semantic analysis)
-# - spaCy (NLP)
-# - NetworkX (graph analysis)
-# - Streamlit (UI)
-# - And ~40 other packages
 ```
 
-**Expected Duration**: 5-10 minutes
+**What gets installed:**
+- 12 core packages (specified in requirements.txt)
+- ~140 sub-dependencies (automatically resolved by pip)
+- Total download size: ~2GB
+- Models will download on first run (~500MB for sentence-transformers)
+
+**Troubleshooting:**
+- If installation fails, ensure Python 3.10+ is installed
+- On Python 3.14, spaCy may fail - this is handled gracefully by the app
+- For faster installation: `pip install --prefer-binary -r requirements.txt`
 
 ---
 
-### Step 5: Download NLP Models
-
-```bash
-# Download spaCy English model
-python -m spacy download en_core_web_sm
-
-# Sentence-BERT model will download automatically on first use
-# (~90MB, happens during first analysis)
-```
-
----
-
-### Step 6: Configure Environment
+### Step 5: Configure Environment
 
 ```bash
 # Copy environment template
 cp .env.example .env
 
 # Windows:
-copy .env.example .env
+Copy-Item .env.example .env
 ```
 
 **Edit `.env` file:**
@@ -143,11 +132,71 @@ notepad .env   # Windows
 
 **Add your OpenAI API key:**
 ```env
-OPENAI_API_KEY=sk-proj-your-actual-api-key-here
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_API_KEY=sk-your-actual-api-key-here
+```
 
-# Optional: Enable LangSmith tracing for debugging
-LANGCHAIN_TRACING_V2=false
+**Optional Configuration:**
+```env
+# Model settings
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+SPACY_MODEL=en_core_web_sm
+
+# Thresholds (defaults shown)
+SIMILARITY_THRESHOLD=0.7
+STYLE_SIMILARITY_THRESHOLD=0.8
+PRICE_OUTLIER_Z_SCORE=2.0
+```
+
+**Get OpenAI API Key:**
+- Visit: https://platform.openai.com/api-keys
+- Create new API key
+- Copy and paste into .env file
+- Free tier includes $5 credits for testing
+
+**Security Note:**
+- Never commit `.env` to git (already in .gitignore)
+
+---
+
+### Step 6: Verify Installation
+
+```bash
+# Test imports
+python -c "import langgraph, langchain, streamlit; print('✓ All core packages installed')"
+
+# Check package versions
+pip list | grep -E "langgraph|langchain|openai|streamlit"
+```
+
+**Expected output:**
+```
+✓ All core packages installed
+langgraph            1.0.5
+langchain            1.2.0
+openai               2.12.0
+streamlit            1.52.1
+```
+
+---
+
+### Step 7: Run the Application
+
+```bash
+streamlit run app.py
+```
+
+**Expected behavior:**
+- Terminal shows: "You can now view your Streamlit app in your browser"
+- Browser opens automatically to: `http://localhost:8501`
+- UI displays: "🛡️ BitShield - Transparent Procurement Agent"
+
+**If browser doesn't open:**
+- Manually navigate to `http://localhost:8501`
+- Check firewall isn't blocking port 8501
+
+**To stop the application:**
+- Press `Ctrl+C` in terminal
+- Or close the terminal window
 LANGCHAIN_API_KEY=your_langsmith_key
 ```
 

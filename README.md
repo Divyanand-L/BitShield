@@ -64,7 +64,78 @@ Rather than making automated judgments, the system provides **explainable eviden
 
 ---
 
-## 📁 Project Structure
+## � Quick Start
+
+### Prerequisites
+- Python 3.10+ (tested on Python 3.14)
+- Git
+- OpenAI API key
+
+### Installation Steps
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/Divyanand-L/BitShield.git
+cd BitShield
+```
+
+2. **Create and activate virtual environment:**
+
+**Windows (PowerShell):**
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+**macOS/Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. **Install dependencies:**
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+This installs 12 core packages (automatically installs ~140 sub-dependencies):
+- `langgraph==1.0.5` - Stateful agent framework
+- `langchain==1.2.0` - LLM orchestration
+- `openai==2.12.0` - GPT-4 API
+- `sentence-transformers==5.2.0` - Semantic similarity
+- `torch==2.9.1` - Deep learning backend
+- `pandas==2.3.3`, `numpy==2.3.5` - Data processing
+- `scikit-learn==1.8.0`, `scipy==1.16.3` - Statistical analysis
+- `networkx==3.6.1` - Graph analysis
+- `streamlit==1.52.1` - Web UI
+- `pdfplumber==0.11.8` - PDF extraction
+
+4. **Set up environment variables:**
+```bash
+# Copy template
+cp .env.example .env
+
+# Edit .env and add your OpenAI API key
+# OPENAI_API_KEY=sk-your-actual-api-key-here
+```
+
+**Windows:**
+```powershell
+Copy-Item .env.example .env
+notepad .env
+```
+
+5. **Run the application:**
+```bash
+streamlit run app.py
+```
+
+The app will open at `http://localhost:8501`
+
+---
+
+## �📁 Project Structure
 
 ```
 BitShield/
